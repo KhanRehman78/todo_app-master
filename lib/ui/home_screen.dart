@@ -21,8 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: AppConstantWidget.appColor,
-          title: Text(
+          title: const Text(
             "Home",
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           centerTitle: true,
           elevation:0 ,
-          shape: OutlineInputBorder(
+          shape: const OutlineInputBorder(
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(15),
                   bottomLeft: Radius.circular(15)),
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                TabBar(
+                const TabBar(
                   isScrollable: true ,
                  labelStyle: TextStyle(
                    fontSize:14,
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text("Complete Task"),
                   ],
                 ),
-                Expanded(
+                const Expanded(
                   child: TabBarView(
                     children: [
                       AllTask(),

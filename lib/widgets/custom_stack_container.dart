@@ -6,7 +6,7 @@ import '../utils/appconstant_wodget.dart';
 class CustomStackContainer extends StatelessWidget {
   const CustomStackContainer({Key? key, required this.myImage, required this.addButton})
       : super(key: key);
-  final AssetImage myImage;
+  final Widget myImage;
   final Widget addButton;
 
   @override
@@ -15,30 +15,23 @@ class CustomStackContainer extends StatelessWidget {
       child: Container(
         height: 100,
         width: 100,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: Center(
           child: Stack(
             children: [
-              Container(
-                height: 90,
-                width: 90,
-                decoration: BoxDecoration(
-                  //color: Colors.grey,
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image:myImage,fit: BoxFit.cover
-                  )
-                ),
-              ),
+             CircleAvatar(
+               radius: 50,
+               child: myImage ,
+             ),
               Positioned(
                 bottom:1,
                 right: 10,
                 child: Container(
                   width: 20,
                   height: 20,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: AppConstantWidget.appColor,
                   ),

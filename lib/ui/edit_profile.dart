@@ -32,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
               textSpaceing: 0,
 
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
            Padding(
@@ -43,18 +43,18 @@ class _EditProfileState extends State<EditProfile> {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    CustomStackContainer(
-                     myImage: AssetImage("assets/images/artnine.jpg"),
+                     myImage: Image.asset("assets/images/artnine.jpg"),
                      addButton: GestureDetector(
                          onTap: (){
 
                          },
-                         child: Icon(
+                         child: const Icon(
                            Icons.add,
                            size: 20,
                            color: Colors.black,
                          )),
                    ),
-                   SizedBox(
+                   const SizedBox(
                      height: 20,
                    ),
                    CustomText(
@@ -65,7 +65,7 @@ class _EditProfileState extends State<EditProfile> {
                      textSize: 12,
                      textSpaceing: 1,
                    ),
-                   SizedBox(
+                   const SizedBox(
                      height: 4,
                    ),
                    CustomTextformfield(
@@ -76,7 +76,7 @@ class _EditProfileState extends State<EditProfile> {
                      borderRadius: 20,
                      borderSide: 2,
                    ),
-                   SizedBox(height: 20,),
+                   const SizedBox(height: 20,),
                    CustomText(
 
                      myText: "Email Address",
@@ -85,7 +85,7 @@ class _EditProfileState extends State<EditProfile> {
                      textSize: 12,
                      textSpaceing: 1,
                    ),
-                   SizedBox(
+                   const SizedBox(
                      height: 4,
                    ),
                    CustomTextformfield(
@@ -96,7 +96,7 @@ class _EditProfileState extends State<EditProfile> {
                      borderRadius: 20,
                      borderSide: 2,
                    ),
-                   SizedBox(height: 40,),
+                   const SizedBox(height: 40,),
                    GestureDetector(
                      onTap: () {
                        if (_formkey.currentState!.validate()) {

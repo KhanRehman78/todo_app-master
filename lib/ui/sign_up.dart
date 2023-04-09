@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/infrastructure/model/user_model.dart';
+import 'package:todo_app/infrastructure/services/auth_services.dart';
+import 'package:todo_app/infrastructure/services/user_servies.dart';
 
 import '../utils/appconstant_wodget.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/custom_textfromfield.dart';
+
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
@@ -11,12 +15,17 @@ class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
-TextEditingController _emailcontroller=TextEditingController();
-TextEditingController _fnamecontroller=TextEditingController();
-TextEditingController _pwdcontroller=TextEditingController();
-final _formkey=GlobalKey<FormState>();
-bool obsecure=true;
+
+TextEditingController _emailcontroller = TextEditingController();
+TextEditingController _namecontroller = TextEditingController();
+
+TextEditingController _pwdcontroller = TextEditingController();
+final _formkey = GlobalKey<FormState>();
+bool obsecure = true;
+
 class _SignUpScreenState extends State<SignUpScreen> {
+  AuthServices _authServices = AuthServices();
+  UserServices _userServices = UserServices();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   CustomText(
@@ -40,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     textSize: 25,
                     textSpaceing: 0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   CustomText(
@@ -50,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     textSize: 20,
                     textSpaceing: 0,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   CustomText(
@@ -60,17 +69,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     textSize: 12,
                     textSpaceing: 1,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   CustomTextformfield(
                     validate: (email) =>
                     email.isEmpty ? "Please Enter Your Full Name" : null,
-                    controller: _emailcontroller,
+                    controller: _namecontroller,
                     borderRadius: 20,
                     borderSide: 2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   CustomText(
@@ -80,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     textSize: 12,
                     textSpaceing: 1,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   CustomTextformfield(
@@ -90,7 +99,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     borderRadius: 20,
                     borderSide: 2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   CustomText(
@@ -100,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     textSize: 12,
                     textSpaceing: 1,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   CustomTextformfield(
@@ -126,18 +135,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     borderRadius: 20,
                     borderSide: 2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
 
-                  
-                  SizedBox(
+
+                  const SizedBox(
                     height: 20,
                   ),
                   GestureDetector(
                     onTap: () {
                       if (_formkey.currentState!.validate()) {
-                        print("Pressd");
+                        ///
+                        _authServices.registerUser(email: _emailcontroller.text,
+                            password: _pwdcontroller.text).then((value) {
+                           ///
+                          _userServices.createUser(UserModel(
+                            uid: value.user!.uid,
+                            emailAddress: _emailcontroller.text,
+                            fullName: _namecontroller.text,
+                          ));
+                          _namecontroller.clear();
+                          _emailcontroller.clear();
+                          _pwdcontroller.clear();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('User register successfully'),
+                            ),
+                          );
+                        }).onError((error, stackTrace){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(error.toString()),
+                            ),
+                          );
+                        } );
                       }
                     },
                     child: CustomButton(
@@ -148,7 +180,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height:MediaQuery.of(context).size.height*0.17,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.17,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

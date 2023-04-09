@@ -24,7 +24,7 @@ class CustomTextformfield extends StatelessWidget {
     this.iconSize = 25,
     this.iconColor = Colors.white,
     required this.controller,
-    this.obsecurePWD = true,
+    this.obsecurePWD = false,
     this.borderColor = AppConstantWidget.appColor, this.keybored=TextInputType.text,
   }) : super(key: key);
 
@@ -34,6 +34,7 @@ class CustomTextformfield extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: TextFormField(
+        controller: controller,
         validator: (value) => validate!(value!),
         obscureText: obsecurePWD!,
          keyboardType:keybored!,
